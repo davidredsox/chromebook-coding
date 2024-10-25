@@ -1,23 +1,28 @@
-var font;
+let font;
+let vehicles = [];
 
 function preload() {
-    font = loadFont("Montserrat-Regular.ttf");
+    font = loadFont('moonlite.otf');
 }
 
 function setup() {
     createCanvas(600,300);
+    frameRate(60);
+    background(51);
+
+    let points = font.textToPoints("testing", 100, 200, 192);
+    for (let i = 0; i < points.length; ++i) {
+        let pt = points[i];
+        let vehicle = new Vehicle(pt.x,pt.y);
+        vehicles.push(vehicle);
+    }
 }
 
 function draw() {
     background(51);
-    textSize(50);
-    textFont("Montserrat");
-    textFont(font);
-    textAlign(CENTER, CENTER);
-    fill(255);
-    noStroke();
-    text("testing", width/2, height/2);
-    
-    var points = font.textToPoints("testing", 0, 0);
-    console.log(points);
+    vehicles.forEach(v => {
+        v.behaviors();
+        v.update();
+        v.show();
+    })
 }
