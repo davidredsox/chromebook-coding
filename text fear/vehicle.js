@@ -1,11 +1,11 @@
-function Vehicle(x,y) {
-    this.pos = createVector(random(width), random(height));
-    this.target = createVector(x,y);
+function Vehicle(target, pos = createVector(random(width), random(height))) {
+    this.pos = pos;
+    this.target = target;
     this.vel = p5.Vector.random2D();
     this.acc = createVector();
     this.r = 8;
-    this.maxspeed = 10;
-    this.maxforce = 1;
+    this.maxspeed = 15;
+    this.maxforce = 3;
 }
 
 Vehicle.prototype.behaviors = function() {
@@ -17,7 +17,7 @@ Vehicle.prototype.behaviors = function() {
     flee.mult(5);
 
     this.applyForce(arrive);
-    this.applyForce(flee);
+    // this.applyForce(flee);
 }
 
 Vehicle.prototype.applyForce = function(f) {
